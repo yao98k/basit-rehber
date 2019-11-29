@@ -48,9 +48,9 @@ public class Adaptor extends BaseAdapter {
         ImageView fotograf =  lineView.findViewById(R.id.image_kisi);
 
         Kisiler kisi = kisilerList.get(i);
-        textIsim.setText(kisi.getKisiAdi());
-        textNumara.setText(kisi.getNumara());
-        fotograf.setImageBitmap(kisi.getFoto());
+        textIsim.setText(kisi.getTelAd());
+        textNumara.setText(kisi.getTelNumara());
+        fotograf.setImageBitmap(kisi.getTelFoto());
 
         return lineView;
     }

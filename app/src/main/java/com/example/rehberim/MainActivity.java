@@ -14,10 +14,12 @@ import android.widget.ListView;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 
 public class MainActivity extends AppCompatActivity {
-    final List<Kisiler> kisi = new ArrayList<Kisiler>();
+    ArrayList<Kisiler> kisi = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,28 +29,32 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.beef);
         ListView listView = findViewById(R.id.listView);
         ContentResolver contentResolver = getContentResolver();
-        /*
-        * Cursor nesnesi bir sorgunun sonucunu temsil eder.
-        * moveToNext() ile veriler arasında geçiş yapılır.
-        * */
-        Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null, null);
+        Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                null, null, null, null, null);
+
+
         if ((cursor != null ? cursor.getCount() : 0) > 0) {
             while (cursor.moveToNext()) {
+                String telId = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID));
                 String isim = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                 String numara = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                 String fotoUri = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI));
+
                 if (fotoUri != null) {
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(contentResolver, Uri.parse(fotoUri));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                } else {
+                    bitmap = null;
                 }
-                else
-                {
-                    bitmap=null;
-                }
-                kisi.add(new Kisiler(isim, numara,bitmap));
+                // Set<Kisiler> set = new LinkedHashSet<>();
+                // set.addAll(kisi);
+                // kisi.clear();
+                //   kisi.addAll(set);
+               // kisi.stream().distinct().collect(Collectors.toList());
+                kisi.add(new Kisiler(isim, numara, bitmap, telId));
 
             }
         }
@@ -56,5 +62,7 @@ public class MainActivity extends AppCompatActivity {
         Adaptor adaptor = new Adaptor(this, kisi);
         listView.setAdapter(adaptor);
     }
+
+
 }
 

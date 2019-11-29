@@ -3,38 +3,42 @@ package com.example.rehberim;
 import android.graphics.Bitmap;
 
 public class Kisiler {
-    private String kisiAdi;
-    private String numara;
-   private Bitmap foto;
+    private String telAd;
+    private String telNumara;
+    private Bitmap telFoto;
+    private String telId;
 
 
-    Kisiler(String kisiAdi, String numara, Bitmap foto) {
-        this.kisiAdi=kisiAdi;
-        this.numara=numara;
-       this.foto=foto;
+    Kisiler(String kisiAdi, String numara, Bitmap foto, String telId) {
+        this.telAd = kisiAdi;
+        this.telNumara = numara;
+        this.telFoto = foto;
+        this.telId = telId;
     }
 
-    public String getKisiAdi() {
-        return kisiAdi;
+    public String getTelAd() {
+        return telAd;
     }
 
-    public void setKisiAdi(String kisiAdi) {
-        this.kisiAdi = kisiAdi;
+    public void setTelAd(String telAd) {
+        this.telAd = telAd;
     }
 
-    public String getNumara() {
-        return numara;
+    public String getTelNumara() {
+        return telNumara;
     }
 
-    public void setNumara(String numara) {
-        this.numara = numara;
+    public void setTelNumara(String telNumara) {
+        this.telNumara=telNumara;
     }
 
-   public void setFoto(Bitmap foto) {
-        this.foto = foto;
+    public void setTelFoto(Bitmap telFoto) { this.telFoto=telFoto; }
+
+    public Bitmap getTelFoto() {
+        return telFoto;
     }
 
-    public Bitmap getFoto() {
-        return foto;
-    }
+    public String getTelId() { return telId; }
+
+    public void setTelId(String telId) { this.telId = telId; }
 }
